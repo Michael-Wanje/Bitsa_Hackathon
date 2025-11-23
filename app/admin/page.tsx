@@ -198,14 +198,14 @@ export default function AdminPage() {
 
       <main className="min-h-screen pb-12">
         {/* Header */}
-        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-linear-to-r from-primary via-blue-600 to-primary dark:from-primary/80 dark:via-blue-700 dark:to-primary/80 border-b border-primary/20 shadow-xl">
+        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-background border-b border-border">
           <div className="max-w-7xl mx-auto">
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-5xl font-bold text-white mb-2">Admin Dashboard</h1>
-                <p className="text-white/90 mt-2 text-lg">Manage BITSA content and members</p>
+                <h1 className="text-5xl font-bold text-foreground mb-2">Admin Dashboard</h1>
+                <p className="text-muted-foreground mt-2 text-lg">Manage BITSA content and members</p>
               </div>
-              <Button asChild className="gap-2 bg-white text-primary hover:bg-white/90 shadow-lg">
+              <Button asChild variant="outline" className="gap-2">
                 <Link href="/admin/settings">
                   <Settings className="w-4 h-4" />
                   Settings
@@ -220,9 +220,9 @@ export default function AdminPage() {
           <div className="max-w-7xl mx-auto">
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
               {stats.map((stat, index) => (
-                <Card key={index} className="p-8 hover:shadow-2xl hover:scale-105 transition-all duration-300 bg-linear-to-br from-white via-white to-primary/5 dark:from-slate-900 dark:via-slate-900 dark:to-primary/10 border-primary/20">
+                <Card key={index} className="p-8 hover:shadow-lg hover:scale-105 transition-all duration-300 border-border">
                   <div className="flex items-start justify-between mb-6">
-                    <div className="w-16 h-16 rounded-xl bg-linear-to-br from-primary to-blue-600 flex items-center justify-center text-white shadow-lg">
+                    <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                       {stat.icon}
                     </div>
                     {stat.trend && (
@@ -232,8 +232,8 @@ export default function AdminPage() {
                       </div>
                     )}
                   </div>
-                  <p className="text-xl font-semibold text-slate-600 dark:text-slate-400 mb-4">{stat.label}</p>
-                  <p className="text-5xl font-bold bg-linear-to-r from-primary to-blue-600 bg-clip-text text-transparent dark:text-white">{stat.value}</p>
+                  <p className="text-xl font-semibold text-muted-foreground mb-4">{stat.label}</p>
+                  <p className="text-5xl font-bold text-foreground">{stat.value}</p>
                 </Card>
               ))}
             </div>
@@ -248,17 +248,15 @@ export default function AdminPage() {
                 const Icon = tool.icon
                 return (
                   <Link key={tool.href} href={tool.href} className="group">
-                    <Card className="p-8 hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-pointer h-full relative border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden">
-                      <div className="absolute inset-0 bg-linear-to-br from-transparent via-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <Card className="p-8 hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer h-full relative border-border overflow-hidden">
+                      <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                       {tool.badge && (
                         <div className="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold rounded-full w-7 h-7 flex items-center justify-center shadow-lg animate-pulse">
                           {tool.badge}
                         </div>
                       )}
                       <div className="flex items-start justify-between mb-6 relative z-10">
-                        <div
-                          className={`w-16 h-16 rounded-xl bg-linear-to-br ${tool.color} flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-300`}
-                        >
+                        <div className="w-16 h-16 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-300">
                           <Icon className="w-8 h-8" />
                         </div>
                         <ArrowRight className="w-6 h-6 text-muted-foreground group-hover:translate-x-2 group-hover:text-primary transition-all duration-300" />
