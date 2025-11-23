@@ -1,0 +1,9 @@
+build:
+  - npm install -g pnpm
+  - pnpm install --frozen-lockfile
+  - npx prisma generate
+  - pnpm run build
+
+start:
+  - npx prisma migrate deploy
+  - node dist/index.js
