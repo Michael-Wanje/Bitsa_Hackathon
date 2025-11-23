@@ -44,8 +44,12 @@ app.use(express.json({ limit: "50mb" }))
 app.use(express.urlencoded({ limit: "50mb", extended: true }))
 app.use(requestLogger)
 
-// Health check
+// Health check endpoints
 app.get("/health", (req, res) => {
+  res.json({ status: "ok", timestamp: new Date().toISOString() })
+})
+
+app.get("/api/health", (req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() })
 })
 
