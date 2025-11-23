@@ -196,9 +196,9 @@ export default function AdminPage() {
     <>
       <Navigation />
 
-      <main className="min-h-screen pb-12">
+      <main className="min-h-screen pb-12 bg-background">
         {/* Header */}
-        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-background border-b border-border">
+        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-primary/5 to-transparent border-b border-border">
           <div className="max-w-7xl mx-auto">
             <div className="flex items-center justify-between">
               <div>
@@ -216,7 +216,7 @@ export default function AdminPage() {
         </section>
 
         {/* Stats */}
-        <section className="py-12 px-4 sm:px-6 lg:px-8">
+        <section className="py-12 px-4 sm:px-6 lg:px-8 bg-background">
           <div className="max-w-7xl mx-auto">
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
               {stats.map((stat, index) => (
