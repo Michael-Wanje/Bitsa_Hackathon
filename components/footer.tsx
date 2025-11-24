@@ -15,13 +15,12 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 mb-12 sm:mb-16">
           <div className="group">
-            <div className="flex items-center space-x-2 mb-4">
+            <div className="flex items-center mb-4">
               <img
                 src="/bitsa_logo.jpg"
-                alt="BITSA Logo"
+                alt="Logo"
                 className="w-10 h-10 rounded-lg object-contain transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-primary/50"
               />
-              <h3 className="font-bold text-lg text-primary">BITSA</h3>
             </div>
             <p className="text-muted-foreground text-sm leading-relaxed hover:text-foreground transition-colors duration-300">
               Bachelor of Information Technology Students Association at UEAB. Connecting tech enthusiasts and fostering

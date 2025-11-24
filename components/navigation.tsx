@@ -38,15 +38,12 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* CHANGE: Enhanced logo with gradient and hover effect */}
-          <Link href="/" className="flex items-center space-x-2 group">
+          <Link href="/" className="flex items-center group">
             <img
               src="/bitsa_logo.jpg"
               alt="BITSA Logo"
               className="w-10 h-10 rounded-lg object-contain transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-primary/50"
             />
-            <span className="font-bold text-lg hidden sm:inline text-primary transition-all duration-300 group-hover:text-secondary">
-              BITSA
-            </span>
           </Link>
 
           {/* Desktop Menu - Scrollable */}
