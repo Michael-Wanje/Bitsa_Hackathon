@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "BITSA - Bachelor of Information Technology Students Association",
-  description: "Where deep tech meets a human mindset. Join BITSA at UEAB for events, community, and tech excellence.",
+  description: "Your hub for everything BIT at UEAB. Join BITSA at UEAB for events, community, and tech excellence.",
   generator: "v0.app",
   icons: {
     icon: [
