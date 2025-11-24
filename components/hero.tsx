@@ -1,12 +1,40 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Play } from "lucide-react"
+import { api } from "@/lib/api"
 
 export default function Hero() {
   const countRef = useRef<HTMLDivElement>(null)
+  const [stats, setStats] = useState({
+    members: 0,
+    events: 0,
+    blogs: 0,
+  })
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const [usersRes, eventsRes, blogsRes] = await Promise.all([
+          api.admin.getDashboard().catch(() => ({ data: { stats: { totalUsers: 0 } } })),
+          api.events.getAll({ limit: 1000 }).catch(() => ({ data: { events: [] } })),
+          api.blog.getAll({ limit: 1000 }).catch(() => ({ data: { blogs: [] } })),
+        ])
+        
+        setStats({
+          members: usersRes.data?.stats?.totalUsers || 0,
+          events: (eventsRes.data?.events || []).length || 0,
+          blogs: (blogsRes.data?.blogs || []).length || 0,
+        })
+      } catch (error) {
+        console.error('Failed to fetch stats:', error)
+      }
+    }
+
+    fetchStats()
+  }, [])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -66,7 +94,7 @@ export default function Hero() {
         {/* CHANGE: Enhanced badge with animation */}
         <div className="inline-flex items-center space-x-2 mb-6 px-4 py-2 rounded-full glass animate-in fade-in slide-in-from-bottom-4 duration-700">
           <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
-          <span className="text-xs sm:text-sm font-semibold text-primary">Join 500+ Members Today</span>
+          <span className="text-xs sm:text-sm font-semibold text-primary">Join {stats.members}+ Members Today</span>
         </div>
 
         {/* CHANGE: Cinematic hero title with staggered reveal */}
@@ -113,21 +141,21 @@ export default function Hero() {
         >
           <div className="glass p-4 sm:p-6 rounded-xl group hover:shadow-lg hover:shadow-primary/20 transition-all duration-300">
             <div className="text-3xl sm:text-4xl font-bold text-primary">
-              <span data-count="500">0</span>+
+              <span data-count={stats.members}>0</span>+
             </div>
             <div className="text-xs sm:text-sm text-muted-foreground mt-2">Active Members</div>
           </div>
           <div className="glass p-4 sm:p-6 rounded-xl group hover:shadow-lg hover:shadow-secondary/20 transition-all duration-300">
             <div className="text-3xl sm:text-4xl font-bold text-secondary">
-              <span data-count="50">0</span>+
+              <span data-count={stats.events}>0</span>+
             </div>
-            <div className="text-xs sm:text-sm text-muted-foreground mt-2">Events Yearly</div>
+            <div className="text-xs sm:text-sm text-muted-foreground mt-2">Total Events</div>
           </div>
           <div className="glass p-4 sm:p-6 rounded-xl group hover:shadow-lg hover:shadow-accent/20 transition-all duration-300">
             <div className="text-3xl sm:text-4xl font-bold text-accent">
-              <span data-count="100">0</span>%
+              <span data-count={stats.blogs}>0</span>+
             </div>
-            <div className="text-xs sm:text-sm text-muted-foreground mt-2">Tech Focused</div>
+            <div className="text-xs sm:text-sm text-muted-foreground mt-2">Blog Posts</div>
           </div>
         </div>
       </div>
