@@ -17,8 +17,14 @@ export default function LoginPage() {
 
   useEffect(() => {
     console.log("LoginPage component mounted")
-    console.log("Form data state:", formData)
-    console.log("handleSubmit function:", typeof handleSubmit)
+    
+    // Check if user is already logged in
+    const token = localStorage.getItem("token")
+    if (token) {
+      console.log("User already has token, verifying...")
+      // Don't auto-redirect, let them login again if token is invalid
+      // This prevents redirect loops
+    }
   }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

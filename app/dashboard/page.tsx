@@ -30,9 +30,13 @@ export default function DashboardPage() {
   const [blogsRead, setBlogsRead] = useState(0)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [redirecting, setRedirecting] = useState(false)
 
   useEffect(() => {
     const fetchDashboardData = async () => {
+      // Prevent multiple redirects
+      if (redirecting) return
+      
       try {
         setLoading(true)
         const token = localStorage.getItem("token")
@@ -40,6 +44,7 @@ export default function DashboardPage() {
 
         if (!token) {
           console.log("📊 Dashboard: No token found, redirecting to login...")
+          setRedirecting(true)
           window.location.href = "/auth/login"
           return
         }
@@ -50,6 +55,7 @@ export default function DashboardPage() {
         
         if (!userData.success || !userData.data) {
           console.log("📊 Dashboard: Invalid response, clearing token and redirecting...")
+          setRedirecting(true)
           localStorage.removeItem("token")
           localStorage.removeItem("user")
           window.location.href = "/auth/login"
@@ -78,6 +84,7 @@ export default function DashboardPage() {
         // If it's an authentication error, clear token and redirect
         if (err?.message?.includes("401") || err?.message?.includes("Unauthorized") || err?.message?.includes("authenticated")) {
           console.log("📊 Dashboard: Authentication error, clearing token and redirecting...")
+          setRedirecting(true)
           localStorage.removeItem("token")
           localStorage.removeItem("user")
           window.location.href = "/auth/login"
@@ -100,7 +107,10 @@ export default function DashboardPage() {
 
     // Listen for event registration to refresh data
     const handleEventRegistration = () => {
-      fetchDashboardData()
+      // Don't refetch if redirecting to avoid loops
+      if (!redirecting) {
+        fetchDashboardData()
+      }
     }
 
     window.addEventListener("storage", handleStorageChange)
@@ -112,7 +122,7 @@ export default function DashboardPage() {
       window.removeEventListener("blogsReadUpdated", handleStorageChange)
       window.removeEventListener("eventRegistered", handleEventRegistration)
     }
-  }, [])
+  }, [redirecting])
 
   const handleLogout = () => {
     localStorage.removeItem("token")
