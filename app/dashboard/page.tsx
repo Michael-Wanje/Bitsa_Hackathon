@@ -82,7 +82,7 @@ export default function DashboardPage() {
             date: e.date || "",
             time: e.time || "",
             status: r.status || "registered",
-            attendees: e.attendeeCount || e.attendees || e.registrations?.length || 0
+            attendees: typeof e.attendees === 'number' ? e.attendees : (e.attendeeCount || (Array.isArray(e.registrations) ? e.registrations.length : 0) || 0)
           }
         })
         setRegisteredEvents(mappedEvents)
