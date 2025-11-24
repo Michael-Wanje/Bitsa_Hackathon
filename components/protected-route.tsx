@@ -17,7 +17,7 @@ export function ProtectedRoute({
         <div className="text-center">
           <h1 className="text-3xl font-bold text-foreground mb-4">Access Denied</h1>
           <p className="text-muted-foreground mb-8 max-w-md">
-            You need to be logged in to access this page. Please sign in with your BITSA account.
+            You need to be logged in to access this page. Please sign in with your <span className="inline-flex items-center"><img src="/bitsa_logo.jpg" alt="BITSA Logo" className="w-5 h-5 rounded-lg object-contain inline-block mr-1" />BITSA</span> account.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/auth/login">

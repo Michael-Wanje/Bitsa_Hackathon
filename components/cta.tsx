@@ -29,7 +29,7 @@ export default function CTA() {
           </h2>
 
           <p className="text-lg text-muted-foreground mb-12 max-w-3xl mx-auto text-center leading-relaxed">
-            Whether you're a beginner or an experienced developer, there's a place for you at BITSA. Connect with peers,
+            Whether you're a beginner or an experienced developer, there's a place for you at <span className="inline-flex items-center"><img src="/bitsa_logo.jpg" alt="BITSA Logo" className="w-6 h-6 rounded-lg object-contain inline-block mr-1" />BITSA</span>. Connect with peers,
             learn new skills, and grow together in our thriving tech community.
           </p>
 

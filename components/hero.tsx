@@ -81,6 +81,9 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden px-4 sm:px-6">
+      <div className="absolute top-10 left-10 z-20">
+        <img src="/bitsa_logo.jpg" alt="BITSA Logo" className="w-16 h-16 rounded-lg object-contain" />
+      </div>
       {/* CHANGE: Enhanced dynamic gradient background with animations */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-10 right-10 w-72 sm:w-96 h-72 sm:h-96 bg-linear-to-b from-primary/30 to-transparent rounded-full blur-3xl animate-float"></div>

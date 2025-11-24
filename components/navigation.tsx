@@ -39,9 +39,11 @@ export default function Navigation() {
         <div className="flex items-center justify-between h-16">
           {/* CHANGE: Enhanced logo with gradient and hover effect */}
           <Link href="/" className="flex items-center space-x-2 group">
-            <div className="w-8 h-8 rounded-lg bg-linear-to-br from-primary via-secondary to-accent flex items-center justify-center transition-all duration-300 group-hover:shadow-lg group-hover:shadow-primary/50 group-hover:scale-110">
-              <span className="text-sm font-bold text-primary-foreground">B</span>
-            </div>
+            <img
+              src="/bitsa_logo.jpg"
+              alt="BITSA Logo"
+              className="w-10 h-10 rounded-lg object-contain transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-primary/50"
+            />
             <span className="font-bold text-lg hidden sm:inline text-primary transition-all duration-300 group-hover:text-secondary">
               BITSA
             </span>
