@@ -3,18 +3,18 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { BookOpen, ArrowRight, Eye, MessageCircle, Clock } from "lucide-react"
-import { getBlogs } from "@/lib/api"
+import { BookOpen, ArrowRight, Eye, MessageCircle, Clock, Calendar, User } from "lucide-react"
+import { api } from "@/lib/api"
 
 interface BlogPost {
-  id: string
+  id: number
   title: string
-  date: string
-  excerpt: string
-  readTime: string
-  views: number
-  comments: number
+  content: string
+  createdAt: string
   category: string
+  author?: {
+    fullName: string
+  }
 }
 
 export default function BlogPreview() {
@@ -25,12 +25,9 @@ export default function BlogPreview() {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await getBlogs(1, 3)
-        if (response.success) {
-          setPosts(response.data.posts)
-        } else {
-          setError("Failed to load blogs")
-        }
+        const response = await api.blog.getAll({ limit: 3 })
+        const blogs = response.data?.blogs || response.blogs || []
+        setPosts(blogs)
       } catch (err) {
         console.error(err)
         setError("Error loading blogs")
@@ -62,50 +59,63 @@ export default function BlogPreview() {
           <BookOpen className="w-7 h-7 text-primary" />
         </div>
         <div>
-          <h3 className="text-2xl font-bold text-foreground">Latest Articles</h3>
+          <h3 className="text-2xl font-bold text-foreground">Latest Blogs</h3>
           <p className="text-sm text-muted-foreground mt-1">Insights from our community</p>
         </div>
       </div>
 
-      <div className="space-y-4">
-        {(posts || []).map((post) => (
-          <Link key={post.id} href={`/blog/${post.id}`} className="group/post block">
-            <div className="p-4 rounded-lg border border-border hover:border-primary/30 bg-muted/30 hover:bg-muted/50 transition-all duration-300 cursor-pointer">
-              <div className="flex items-start justify-between gap-4 mb-2">
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="px-2 py-1 rounded-full text-xs font-semibold bg-primary/15 text-primary">
-                      {post.category}
-                    </span>
-                    <span className="text-xs text-muted-foreground">{post.date}</span>
-                  </div>
-                  <p className="font-bold text-foreground group-hover/post:text-primary transition-colors duration-300 text-sm leading-tight mb-2">
-                    {post.title}
-                  </p>
-                  <p className="text-xs text-muted-foreground line-clamp-2 mb-3">{post.excerpt}</p>
-                </div>
-              </div>
+      {posts.length === 0 && !error && (
+        <div className="text-center py-8 text-muted-foreground">
+          <BookOpen className="w-12 h-12 mx-auto mb-3 opacity-50" />
+          <p>No blogs available yet</p>
+        </div>
+      )}
 
-              <div className="flex items-center justify-between pt-3 border-t border-border">
-                <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                  <div className="flex items-center gap-1">
-                    <Clock className="w-3 h-3" />
-                    {post.readTime}
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Eye className="w-3 h-3" />
-                    {post.views}
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <MessageCircle className="w-3 h-3" />
-                    {post.comments}
+      <div className="space-y-4">
+        {posts.map((post) => {
+          const readTime = Math.ceil((post.content || "").split(" ").length / 200)
+          const excerpt = post.content.substring(0, 120) + "..."
+          
+          return (
+            <Link key={post.id} href={`/blog/${post.id}`} className="group/post block">
+              <div className="p-4 rounded-lg border border-border hover:border-primary/30 bg-muted/30 hover:bg-muted/50 transition-all duration-300 cursor-pointer">
+                <div className="flex items-start justify-between gap-4 mb-2">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="px-2 py-1 rounded-full text-xs font-semibold bg-primary/15 text-primary">
+                        {post.category}
+                      </span>
+                      <span className="text-xs text-muted-foreground flex items-center gap-1">
+                        <Calendar className="w-3 h-3" />
+                        {new Date(post.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                      </span>
+                    </div>
+                    <p className="font-bold text-foreground group-hover/post:text-primary transition-colors duration-300 text-sm leading-tight mb-2">
+                      {post.title}
+                    </p>
+                    <p className="text-xs text-muted-foreground line-clamp-2 mb-3">{excerpt}</p>
                   </div>
                 </div>
-                <ArrowRight className="w-4 h-4 opacity-0 group-hover/post:opacity-100 transition-all duration-300 translate-x-0 group-hover/post:translate-x-1 text-primary" />
+
+                <div className="flex items-center justify-between pt-3 border-t border-border">
+                  <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                    <div className="flex items-center gap-1">
+                      <Clock className="w-3 h-3" />
+                      {readTime} min
+                    </div>
+                    {post.author?.fullName && (
+                      <div className="flex items-center gap-1">
+                        <User className="w-3 h-3" />
+                        {post.author.fullName}
+                      </div>
+                    )}
+                  </div>
+                  <ArrowRight className="w-4 h-4 opacity-0 group-hover/post:opacity-100 transition-all duration-300 translate-x-0 group-hover/post:translate-x-1 text-primary" />
+                </div>
               </div>
-            </div>
-          </Link>
-        ))}
+            </Link>
+          )
+        })}
       </div>
 
       {error && <p className="text-destructive text-sm mt-4">{error}</p>}
