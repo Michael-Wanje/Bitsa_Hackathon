@@ -45,25 +45,25 @@ export default function Hero() {
   }, [])
 
   useEffect(() => {
+    const animateCounter = (element: Element, target: number) => {
+      let current = 0
+      const increment = target / 30
+      const timer = setInterval(() => {
+        current += increment
+        if (current >= target) {
+          current = target
+          clearInterval(timer)
+        }
+        element.textContent = Math.floor(current).toString()
+      }, 50)
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          // CHANGE: Animate counters on scroll into view
-          const animateCounter = (element: Element, target: number) => {
-            let current = 0
-            const increment = target / 30
-            const timer = setInterval(() => {
-              current += increment
-              if (current >= target) {
-                current = target
-                clearInterval(timer)
-              }
-              element.textContent = Math.floor(current).toString()
-            }, 50)
-          }
-
-          const stats = countRef.current?.querySelectorAll("[data-count]")
-          stats?.forEach((stat) => {
+          // Animate counters on scroll into view
+          const statsElements = countRef.current?.querySelectorAll("[data-count]")
+          statsElements?.forEach((stat) => {
             const target = Number.parseInt(stat.getAttribute("data-count") || "0")
             animateCounter(stat, target)
           })
@@ -77,7 +77,7 @@ export default function Hero() {
     }
 
     return () => observer.disconnect()
-  }, [])
+  }, [stats])
 
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden px-4 sm:px-6">
