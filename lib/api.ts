@@ -302,6 +302,13 @@ const galleryAPI = {
     return response.json()
   },
 
+  getById: async (id: string) => {
+    const response = await fetch(`${API_URL}/gallery/${id}`, {
+      headers: getAuthHeaders(),
+    })
+    return response.json()
+  },
+
   upload: async (formData: FormData) => {
     const response = await fetch(`${API_URL}/gallery`, {
       method: "POST",
