@@ -47,13 +47,13 @@ export default function Navigation() {
             </span>
           </Link>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-1">
+          {/* Desktop Menu - Scrollable */}
+          <div className="hidden md:flex items-center space-x-1 overflow-x-auto scrollbar-hide flex-1 mx-4">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-all duration-300 relative group"
+                className="px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-all duration-300 relative group whitespace-nowrap shrink-0"
               >
                 {item.label}
                 {/* CHANGE: Removed gradient underline animation */}
