@@ -23,7 +23,7 @@ export default function GalleryPreview() {
   useEffect(() => {
     const fetchPhotos = async () => {
       try {
-        const response = await api.gallery.getAll({ limit: 3 })
+        const response = await api.gallery.getAll({ limit: 6 })
         const photosList = response.data?.photos || response.photos || []
         setPhotos(photosList)
       } catch (error) {
