@@ -17,16 +17,25 @@ export default function Hero() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
+        console.log('🔵 Fetching stats from API...')
         const response = await api.stats.getPublic()
+        console.log('🔵 Stats API response:', response)
         if (response.success && response.data) {
+          console.log('🔵 Setting stats:', {
+            members: response.data.totalUsers,
+            events: response.data.totalEvents,
+            blogs: response.data.totalBlogs,
+          })
           setStats({
             members: response.data.totalUsers || 0,
             events: response.data.totalEvents || 0,
             blogs: response.data.totalBlogs || 0,
           })
+        } else {
+          console.error('🔴 Response missing success or data:', response)
         }
       } catch (error) {
-        console.error('Failed to fetch stats:', error)
+        console.error('🔴 Failed to fetch stats:', error)
         // Set default values on error
         setStats({ members: 50, events: 10, blogs: 5 })
       }
