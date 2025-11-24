@@ -6,7 +6,7 @@ import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { ArrowLeft, Plus, Edit, Trash2, Calendar, Users, Loader2 } from "lucide-react"
+import { ArrowLeft, Plus, Edit, Trash2, Calendar, Users, Loader2, Eye } from "lucide-react"
 import { api } from "@/lib/api"
 
 interface Event {
@@ -16,6 +16,7 @@ interface Event {
   attendees: number
   category: string
   status: "upcoming" | "past"
+  imageUrl?: string
 }
 
 export default function AdminEventsPage() {
@@ -37,6 +38,7 @@ export default function AdminEventsPage() {
             attendees: event._count?.registrations || 0,
             category: event.status || "upcoming",
             status: new Date(event.date) > new Date() ? "upcoming" : "past",
+            imageUrl: event.imageUrl,
           }))
           setEvents(eventsArray)
         } else {
@@ -119,10 +121,18 @@ export default function AdminEventsPage() {
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Button variant="ghost" size="sm" className="gap-2">
-                          <Edit className="w-4 h-4" />
-                          Edit
-                        </Button>
+                        <Link href={`/events/${event.id}`} target="_blank">
+                          <Button variant="ghost" size="sm" className="gap-2">
+                            <Eye className="w-4 h-4" />
+                            View
+                          </Button>
+                        </Link>
+                        <Link href={`/admin/events/edit/${event.id}`}>
+                          <Button variant="ghost" size="sm" className="gap-2">
+                            <Edit className="w-4 h-4" />
+                            Edit
+                          </Button>
+                        </Link>
                         <Button variant="ghost" size="sm" className="gap-2 text-destructive hover:text-destructive">
                           <Trash2 className="w-4 h-4" />
                           Delete
