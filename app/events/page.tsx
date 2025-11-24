@@ -18,7 +18,8 @@ interface Event {
   date: string
   time: string
   location: string
-  attendees: number
+  attendeeCount?: number
+  attendees?: number
   category: string
   isPast: boolean
   imageUrl?: string
@@ -92,7 +93,12 @@ export default function EventsPage() {
           category: selectedCategory === "All" ? undefined : selectedCategory,
           isPast: showPastEvents,
         })
-        const eventsList = (data.data?.events || data.events || []) as Event[]
+        // Map backend events to always have attendeeCount
+        const eventsListRaw = data.data?.events || data.events || [];
+        const eventsList: Event[] = eventsListRaw.map((e: any) => ({
+          ...e,
+          attendeeCount: typeof e.attendeeCount === 'number' ? e.attendeeCount : (typeof e.attendees === 'number' ? e.attendees : 0)
+        }));
         setEvents(eventsList)
 
         const uniqueCategories = ["All", ...new Set(eventsList.map((e: Event) => e.category).filter(Boolean))]
@@ -248,7 +254,7 @@ export default function EventsPage() {
                         </div>
                         <div className="flex items-center gap-2">
                           <Users className="w-4 h-4 text-secondary" />
-                          <span>{event.attendees}</span>
+                          <span>{typeof event.attendeeCount === 'number' ? event.attendeeCount : 0}</span>
                         </div>
                       </div>
 
