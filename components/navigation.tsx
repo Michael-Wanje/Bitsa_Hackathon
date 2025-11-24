@@ -108,9 +108,14 @@ export default function Navigation() {
             )}
             {/* Theme Toggle for Desktop */}
             <div className="flex gap-1 ml-4">
-              <button className="px-2 py-1 rounded bg-muted text-foreground hover:bg-primary/10" onClick={() => document.documentElement.setAttribute('data-theme', 'system')}>System</button>
-              <button className="px-2 py-1 rounded bg-muted text-foreground hover:bg-primary/10" onClick={() => document.documentElement.setAttribute('data-theme', 'light')}>Light</button>
-              <button className="px-2 py-1 rounded bg-muted text-foreground hover:bg-primary/10" onClick={() => document.documentElement.setAttribute('data-theme', 'dark')}>Dark</button>
+              <button className="px-2 py-1 rounded bg-muted text-foreground hover:bg-primary/10 flex items-center gap-1" onClick={() => document.documentElement.setAttribute('data-theme', 'light')}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="5" stroke="currentColor" strokeWidth="2" fill="yellow" /></svg>
+                Light
+              </button>
+              <button className="px-2 py-1 rounded bg-muted text-foreground hover:bg-primary/10 flex items-center gap-1" onClick={() => document.documentElement.setAttribute('data-theme', 'dark')}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" fill="black" /></svg>
+                Dark
+              </button>
             </div>
           </div>
 
@@ -183,9 +188,14 @@ export default function Navigation() {
               </div>
               {/* Theme Toggle at Bottom */}
               <div className="mt-auto pt-6 pb-2 flex justify-center gap-2 border-t border-border">
-                <button className="px-3 py-2 rounded-lg bg-muted text-foreground hover:bg-primary/10" onClick={() => document.documentElement.setAttribute('data-theme', 'system')}>System</button>
-                <button className="px-3 py-2 rounded-lg bg-muted text-foreground hover:bg-primary/10" onClick={() => document.documentElement.setAttribute('data-theme', 'light')}>Light</button>
-                <button className="px-3 py-2 rounded-lg bg-muted text-foreground hover:bg-primary/10" onClick={() => document.documentElement.setAttribute('data-theme', 'dark')}>Dark</button>
+                <button className="px-3 py-2 rounded-lg bg-muted text-foreground hover:bg-primary/10 flex items-center gap-2" onClick={() => document.documentElement.setAttribute('data-theme', 'light')}>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="5" stroke="currentColor" strokeWidth="2" fill="yellow" /></svg>
+                  Light
+                </button>
+                <button className="px-3 py-2 rounded-lg bg-muted text-foreground hover:bg-primary/10 flex items-center gap-2" onClick={() => document.documentElement.setAttribute('data-theme', 'dark')}>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" fill="black" /></svg>
+                  Dark
+                </button>
               </div>
             </div>
             <div className="flex-1 bg-black/30" onClick={() => setIsOpen(false)}></div>
