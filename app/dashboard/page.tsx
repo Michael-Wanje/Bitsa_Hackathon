@@ -73,7 +73,18 @@ export default function DashboardPage() {
         // Try different possible data structures
         const registrations = eventsData.data?.registrations || eventsData.data || eventsData.registrations || []
         console.log("📊 Dashboard: Resolved registrations:", registrations)
-        setRegisteredEvents(registrations)
+        // Map backend registration objects to RegisteredEvent type
+        const mappedEvents = registrations.map((r: any) => {
+          const e = r.event || r // fallback if event is top-level
+          return {
+            id: e.id,
+            title: e.title || "",
+            date: e.date || "",
+            time: e.time || "",
+            status: r.status || "registered"
+          }
+        })
+        setRegisteredEvents(mappedEvents)
 
         // Get blogs read count from localStorage
         const readBlogs = JSON.parse(localStorage.getItem("blogsRead") || "[]")

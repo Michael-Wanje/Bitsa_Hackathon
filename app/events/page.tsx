@@ -248,7 +248,7 @@ export default function EventsPage() {
                         </div>
                         <div className="flex items-center gap-2">
                           <Users className="w-4 h-4 text-secondary" />
-                          <span>{event.attendees} attending</span>
+                          <span>{event.attendees}</span>
                         </div>
                       </div>
 
