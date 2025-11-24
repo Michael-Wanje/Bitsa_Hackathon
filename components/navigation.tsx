@@ -33,10 +33,10 @@ export default function Navigation() {
 
   return (
     <nav
-      className={`sticky top-0 z-50 transition-all duration-300 ${isScrolled ? "glass shadow-lg shadow-primary/20" : "bg-background/50 backdrop-blur-md"} border-b border-border/50`}
+      className={`w-full z-50 transition-all duration-300 ${isScrolled ? "glass shadow-lg shadow-primary/20" : "bg-background/50 backdrop-blur-md"} border-b border-border/50`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-x-auto">
+        <div className="flex items-center justify-between h-16 min-w-[600px]">
           {/* CHANGE: Enhanced logo with gradient and hover effect */}
           <Link href="/" className="flex items-center group">
             <img
@@ -46,16 +46,16 @@ export default function Navigation() {
             />
           </Link>
 
-          {/* Desktop Menu - Scrollable */}
-          <div className="hidden md:flex items-center space-x-1 overflow-x-auto scrollbar-hide flex-1 mx-4">
+          {/* Desktop Menu - Horizontally Scrollable & Responsive */}
+          <div className="flex items-center space-x-1 overflow-x-auto scrollbar-thin scrollbar-thumb-rounded scrollbar-thumb-primary/30 flex-1 mx-4 min-w-0">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-all duration-300 relative group whitespace-nowrap shrink-0"
+                className="px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-all duration-300 relative group whitespace-nowrap shrink-0 focus:outline-none focus:ring-2 focus:ring-primary"
+                tabIndex={0}
               >
                 {item.label}
-                {/* CHANGE: Removed gradient underline animation */}
                 <span className="absolute bottom-1 left-3 w-0 h-0.5 bg-primary group-hover:w-[calc(100%-24px)] transition-all duration-300"></span>
               </Link>
             ))}
