@@ -1,10 +1,33 @@
 "use client"
 
+
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Mail, Sparkles } from "lucide-react"
+import { useEffect, useState } from "react"
+import { api } from "@/lib/api"
 
 export default function CTA() {
+  const [stats, setStats] = useState({ members: 0, events: 0, blogs: 0 })
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const response = await api.stats.getPublic()
+        if (response.success && response.data) {
+          setStats({
+            members: response.data.totalUsers || 0,
+            events: response.data.totalEvents || 0,
+            blogs: response.data.totalBlogs || 0,
+          })
+        }
+      } catch (error) {
+        setStats({ members: 0, events: 0 })
+      }
+    }
+    fetchStats()
+  }, [])
+
   return (
     <section className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
       <div className="absolute inset-0">
@@ -51,15 +74,15 @@ export default function CTA() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-8 border-t border-white/10 text-sm text-muted-foreground">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-accent"></div>
-              500+ Active Members
+              {stats.members}+ Active Members
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-secondary"></div>
-              50+ Events Annually
+              {stats.events}+ Total Events
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-primary"></div>
-              100% Community Driven
+              {stats.blogs}+ Blog Posts
             </div>
           </div>
         </div>
