@@ -21,6 +21,7 @@ interface Event {
   attendees: number
   category: string
   isPast: boolean
+  imageUrl?: string
 }
 
 export default function EventsPage() {
@@ -200,6 +201,19 @@ export default function EventsPage() {
                     key={event.id}
                     className="overflow-hidden hover:shadow-lg transition-shadow group h-full flex flex-col"
                   >
+                    {/* Event Image */}
+                    {event.imageUrl ? (
+                      <img
+                        src={event.imageUrl}
+                        alt={event.title}
+                        className="w-full h-48 object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-48 bg-gradient-to-br from-secondary/20 via-secondary/10 to-accent/20 flex items-center justify-center">
+                        <Calendar className="w-16 h-16 text-secondary/40" />
+                      </div>
+                    )}
+                    
                     <div className="p-6 flex flex-col flex-1">
                       <div className="mb-4">
                         <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-secondary/10 text-secondary">
@@ -238,25 +252,31 @@ export default function EventsPage() {
                         </div>
                       </div>
 
-                      {/* Action Button */}
-                      <Button
-                        variant={event.isPast ? "outline" : "default"}
-                        className={!event.isPast ? "bg-secondary hover:bg-secondary/90 w-full" : "w-full"}
-                        onClick={() => !event.isPast && handleRegister(event.id)}
-                        disabled={event.isPast || registering.has(event.id)}
-                      >
-                        {registering.has(event.id) ? (
-                          <>
-                            <Loader2 className="mr-2 w-4 h-4 animate-spin" />
-                            Registering...
-                          </>
-                        ) : (
-                          <>
-                            {event.isPast ? "View Details" : "Register Now"}
-                            <ArrowRight className="ml-2 w-4 h-4" />
-                          </>
+                      {/* Action Buttons */}
+                      <div className="flex gap-2">
+                        <Button
+                          variant="outline"
+                          className="flex-1"
+                          onClick={() => window.location.href = `/events/${event.id}`}
+                        >
+                          View Event
+                        </Button>
+                        {!event.isPast && (
+                          <Button
+                            className="bg-secondary hover:bg-secondary/90 flex-1"
+                            onClick={() => handleRegister(event.id)}
+                            disabled={registering.has(event.id)}
+                          >
+                            {registering.has(event.id) ? (
+                              <>
+                                <Loader2 className="w-4 h-4 animate-spin" />
+                              </>
+                            ) : (
+                              <>Register</>
+                            )}
+                          </Button>
                         )}
-                      </Button>
+                      </div>
                     </div>
                   </Card>
                 ))}
