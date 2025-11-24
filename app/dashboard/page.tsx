@@ -39,12 +39,23 @@ export default function DashboardPage() {
         console.log("📊 Dashboard: Token from localStorage:", token ? "EXISTS" : "MISSING")
 
         if (!token) {
-          throw new Error("Not authenticated")
+          console.log("📊 Dashboard: No token found, redirecting to login...")
+          window.location.href = "/auth/login"
+          return
         }
 
         console.log("📊 Dashboard: Fetching user profile...")
         const userData = await api.user.getProfile()
         console.log("📊 Dashboard: User data:", userData)
+        
+        if (!userData.success || !userData.data) {
+          console.log("📊 Dashboard: Invalid response, clearing token and redirecting...")
+          localStorage.removeItem("token")
+          localStorage.removeItem("user")
+          window.location.href = "/auth/login"
+          return
+        }
+        
         console.log("📊 Dashboard: User data.data:", userData.data)
         console.log("📊 Dashboard: User data.data.user:", userData.data?.user)
         setUser(userData.data?.user || userData.data)
@@ -52,7 +63,6 @@ export default function DashboardPage() {
         console.log("📊 Dashboard: Fetching user registrations...")
         const eventsData = await api.events.getUserRegistrations()
         console.log("📊 Dashboard: Events registration data:", eventsData)
-        console.log("📊 Dashboard: Full data structure:", JSON.stringify(eventsData, null, 2))
         
         // Try different possible data structures
         const registrations = eventsData.data?.registrations || eventsData.data || eventsData.registrations || []
@@ -62,8 +72,18 @@ export default function DashboardPage() {
         // Get blogs read count from localStorage
         const readBlogs = JSON.parse(localStorage.getItem("blogsRead") || "[]")
         setBlogsRead(readBlogs.length)
-      } catch (err) {
-        console.error("[v0] Dashboard fetch error:", err)
+      } catch (err: any) {
+        console.error("📊 Dashboard fetch error:", err)
+        
+        // If it's an authentication error, clear token and redirect
+        if (err?.message?.includes("401") || err?.message?.includes("Unauthorized") || err?.message?.includes("authenticated")) {
+          console.log("📊 Dashboard: Authentication error, clearing token and redirecting...")
+          localStorage.removeItem("token")
+          localStorage.removeItem("user")
+          window.location.href = "/auth/login"
+          return
+        }
+        
         setError("Failed to load dashboard data")
       } finally {
         setLoading(false)

@@ -415,7 +415,14 @@ const userAPI = {
     const response = await fetch(`${API_URL}/auth/me`, {
       headers: getAuthHeaders(),
     })
-    return response.json()
+    const data = await response.json()
+    
+    // If unauthorized, throw error to trigger cleanup in dashboard
+    if (!response.ok && (response.status === 401 || response.status === 403)) {
+      throw new Error("Unauthorized - 401")
+    }
+    
+    return data
   },
 
   updateProfile: async (userId: string, data: Partial<{ fullName: string; phoneNumber?: string; bio?: string }>) => {
