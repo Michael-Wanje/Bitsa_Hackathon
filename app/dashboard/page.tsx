@@ -215,7 +215,7 @@ export default function DashboardPage() {
         {/* Stats */}
         <section className="py-12 px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-3 gap-6 mb-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-12">
               {stats.map((stat) => {
                 const Icon = stat.icon
                 return (
@@ -237,7 +237,7 @@ export default function DashboardPage() {
             {/* Quick Actions - Enhanced Tiles */}
             <div className="mt-12 mb-12">
               <h2 className="text-2xl font-bold text-foreground mb-6">Quick Actions</h2>
-              <div className="grid md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 {/* View Submissions */}
                 <Link href="/dashboard/submissions">
                   <Card className="group p-6 bg-linear-to-br from-primary/10 via-primary/5 to-transparent border-2 border-primary/20 hover:border-primary/40 hover:shadow-lg transition-all duration-300 cursor-pointer h-full">
@@ -349,7 +349,7 @@ export default function DashboardPage() {
                 {/* Quick Actions */}
                 <Card className="p-6">
                   <h2 className="text-2xl font-bold text-foreground mb-6">Quick Actions</h2>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <Link href="/blog">
                       <div className="group flex flex-col items-center justify-center p-6 rounded-lg border-2 border-border hover:border-primary/40 bg-linear-to-br from-primary/5 to-transparent hover:from-primary/10 transition-all duration-300 cursor-pointer h-full">
                         <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 group-hover:scale-110 transition-all mb-3">
