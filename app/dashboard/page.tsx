@@ -81,7 +81,8 @@ export default function DashboardPage() {
             title: e.title || "",
             date: e.date || "",
             time: e.time || "",
-            status: r.status || "registered"
+            status: r.status || "registered",
+            attendees: e.attendeeCount || e.attendees || e.registrations?.length || 0
           }
         })
         setRegisteredEvents(mappedEvents)
@@ -321,14 +322,20 @@ export default function DashboardPage() {
                             <p className="text-sm text-muted-foreground">
                               {event.date} at {event.time}
                             </p>
+                            <p className="text-xs text-muted-foreground mt-1">{event.attendees} Attendees</p>
                           </div>
-                          <span
-                            className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap ml-4 ${getStatusColor(event.status)}`}
-                          >
-                            {event.status === "registered" && "Registered"}
-                            {event.status === "attended" && "Attended"}
-                            {event.status === "completed" && "Completed"}
-                          </span>
+                          <div className="flex flex-col items-end gap-2">
+                            <span
+                              className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap mb-2 ${getStatusColor(event.status)}`}
+                            >
+                              {event.status === "registered" && "Registered"}
+                              {event.status === "attended" && "Attended"}
+                              {event.status === "completed" && "Completed"}
+                            </span>
+                            <Link href={`/events/${event.id}`} passHref>
+                              <Button size="sm" variant="outline">View Event</Button>
+                            </Link>
+                          </div>
                         </div>
                       ))}
                     </div>
