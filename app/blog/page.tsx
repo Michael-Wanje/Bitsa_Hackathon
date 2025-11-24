@@ -168,22 +168,23 @@ export default function BlogPage() {
                             {post.title}
                           </h3>
 
-                        <p className="text-foreground/70 mb-6 leading-relaxed">
-                          {post.content.substring(0, 150)}...
-                        </p>
+                          <p className="text-foreground/70 mb-6 leading-relaxed">
+                            {post.content.substring(0, 150)}...
+                          </p>
 
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                            <span className="flex items-center">
-                              <User className="w-4 h-4 mr-2" />
-                              {post.author}
-                            </span>
-                            <span className="flex items-center">
-                              <Calendar className="w-4 h-4 mr-2" />
-                              {new Date(post.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
-                            </span>
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center space-x-4 text-sm text-muted-foreground">
+                              <span className="flex items-center">
+                                <User className="w-4 h-4 mr-2" />
+                                {post.author}
+                              </span>
+                              <span className="flex items-center">
+                                <Calendar className="w-4 h-4 mr-2" />
+                                {new Date(post.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+                              </span>
+                            </div>
+                            <ArrowRight className="w-5 h-5 text-primary group-hover:translate-x-1 transition-transform" />
                           </div>
-                          <ArrowRight className="w-5 h-5 text-primary group-hover:translate-x-1 transition-transform" />
                         </div>
                       </div>
                     </Link>
