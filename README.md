@@ -1,4 +1,25 @@
 # BITSA Website - Development Setup Guide
+# ---------------------------------------------
+# BITSA Website - Project Summary & Team
+# ---------------------------------------------
+
+## Project Overview
+This is the official website for the Bachelor of Information Technology Students Association (BITSA) at UEAB. The platform connects tech enthusiasts, showcases events, blogs, and galleries, and provides a secure dashboard for members and admins.
+
+## Key Features
+- Modern, responsive UI with Next.js and Tailwind CSS
+- Real-time stats for active members, events, and blogs
+- Authentication and protected routes
+- Admin dashboard for event and blog management
+- Dynamic gallery and blog sections
+- Mobile-friendly navigation with drawer sidebar
+- RESTful backend integration
+
+## Team Members
+- **Masaba Michael** (Core Developer)
+- Thabita Jeptoo (Collaboration)
+- Victorious Chepchirchir (Collaboration)
+
 
 A modern full-stack web application for the British Institute Technology Students Association built with Next.js and Express.js.
 
