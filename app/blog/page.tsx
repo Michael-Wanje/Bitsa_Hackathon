@@ -85,7 +85,7 @@ export default function BlogPage() {
         </section>
 
         {/* Search and Filter */}
-        <section className="py-8 px-4 sm:px-6 lg:px-8 bg-background border-b border-border sticky top-16 z-40">
+        <section className="py-8 px-4 sm:px-6 lg:px-8 bg-background border-b border-border overflow-x-auto">
           <div className="max-w-4xl mx-auto space-y-6">
             {/* Search */}
             <div className="relative">

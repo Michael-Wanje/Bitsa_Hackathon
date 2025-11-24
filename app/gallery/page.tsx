@@ -92,7 +92,7 @@ export default function GalleryPage() {
         </section>
 
         {/* Filters */}
-        <section className="py-8 px-4 sm:px-6 lg:px-8 bg-background border-b border-border sticky top-16 z-40">
+        <section className="py-8 px-4 sm:px-6 lg:px-8 bg-background border-b border-border overflow-x-auto">
           <div className="max-w-7xl mx-auto space-y-6">
             {/* Event Filter */}
             <div>
