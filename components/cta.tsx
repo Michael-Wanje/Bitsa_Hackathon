@@ -8,7 +8,7 @@ import { useEffect, useState } from "react"
 import { api } from "@/lib/api"
 
 export default function CTA() {
-  const [stats, setStats] = useState({ members: 0, events: 0, blogs: 0 })
+  const [stats, setStats] = useState({ members: 0, events: 0 })
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -18,7 +18,6 @@ export default function CTA() {
           setStats({
             members: response.data.totalUsers || 0,
             events: response.data.totalEvents || 0,
-            blogs: response.data.totalBlogs || 0,
           })
         }
       } catch (error) {
@@ -42,10 +41,7 @@ export default function CTA() {
 
       <div className="relative z-10 max-w-5xl mx-auto">
         <div className="rounded-3xl p-12 sm:p-16 backdrop-blur-md bg-white/10 border border-white/20">
-          <div className="inline-flex items-center space-x-2 mb-6 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 w-full justify-center">
-            <Sparkles className="w-4 h-4 text-primary" />
-            <span className="text-sm font-semibold text-primary">Limited Time Offer</span>
-          </div>
+          {/* Limited Time Offer badge removed for cleaner UI */}
 
           <h2 className="text-3xl sm:text-5xl font-bold mb-6 text-center leading-tight">
             Ready to <span className="text-accent font-semibold">join our community</span>?
@@ -78,11 +74,11 @@ export default function CTA() {
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-secondary"></div>
-              {stats.events}+ Total Events
+              {stats.events}+ Events Annually
             </div>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-primary"></div>
-              {stats.blogs}+ Blog Posts
+              100% Community Driven
             </div>
           </div>
         </div>
