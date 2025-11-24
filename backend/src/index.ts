@@ -26,6 +26,7 @@ import eventRoutes from "./routes/event.routes"
 import galleryRoutes from "./routes/gallery.routes"
 import adminRoutes from "./routes/admin.routes"
 import contactRoutes from "./routes/contact.routes"
+import statsRoutes from "./routes/stats.routes"
 
 dotenv.config()
 
@@ -60,6 +61,7 @@ app.use("/api/events", eventRoutes)
 app.use("/api/gallery", galleryRoutes)
 app.use("/api/admin", adminRoutes)
 app.use("/api/contact", contactRoutes)
+app.use("/api/stats", statsRoutes)
 
 // Error handling
 app.use(errorHandler)

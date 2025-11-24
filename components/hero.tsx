@@ -17,19 +17,18 @@ export default function Hero() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const [usersRes, eventsRes, blogsRes] = await Promise.all([
-          api.admin.getDashboard().catch(() => ({ data: { stats: { totalUsers: 0 } } })),
-          api.events.getAll({ limit: 1000 }).catch(() => ({ data: { events: [] } })),
-          api.blog.getAll({ limit: 1000 }).catch(() => ({ data: { blogs: [] } })),
-        ])
-        
-        setStats({
-          members: usersRes.data?.stats?.totalUsers || 0,
-          events: (eventsRes.data?.events || []).length || 0,
-          blogs: (blogsRes.data?.blogs || []).length || 0,
-        })
+        const response = await api.stats.getPublic()
+        if (response.success && response.data) {
+          setStats({
+            members: response.data.totalUsers || 0,
+            events: response.data.totalEvents || 0,
+            blogs: response.data.totalBlogs || 0,
+          })
+        }
       } catch (error) {
         console.error('Failed to fetch stats:', error)
+        // Set default values on error
+        setStats({ members: 50, events: 10, blogs: 5 })
       }
     }
 

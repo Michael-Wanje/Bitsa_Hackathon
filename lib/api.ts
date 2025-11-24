@@ -445,6 +445,16 @@ const userAPI = {
   },
 }
 
+// Stats API (public)
+const statsAPI = {
+  getPublic: async () => {
+    const response = await fetch(`${API_URL}/stats/public`, {
+      method: "GET",
+    })
+    return response.json()
+  },
+}
+
 export const api = {
   auth: authAPI,
   blog: blogAPI,
@@ -453,6 +463,7 @@ export const api = {
   contact: contactAPI,
   admin: adminAPI,
   user: userAPI,
+  stats: statsAPI,
 }
 
 // Also export individual functions for backward compatibility
