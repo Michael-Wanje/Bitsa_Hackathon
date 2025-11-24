@@ -19,6 +19,7 @@ interface BlogPost {
   category: string
   readTime: number
   image?: string
+  thumbnail?: string
 }
 
 export default function BlogPage() {
@@ -41,6 +42,7 @@ export default function BlogPage() {
           ...blog,
           author: blog.author?.fullName || blog.author || "Unknown",
           readTime: Math.ceil((blog.content || "").split(" ").length / 200),
+          image: blog.thumbnail || blog.image,
         }))
         setPosts(blogs)
 
@@ -137,17 +139,34 @@ export default function BlogPage() {
                 {filteredPosts.map((post) => (
                   <Card key={post.id} className="overflow-hidden hover:shadow-lg transition-shadow group">
                     <Link href={`/blog/${post.id}`}>
-                      <div className="p-8">
-                        <div className="flex items-start justify-between mb-4">
-                          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary">
-                            {post.category}
-                          </span>
-                          <span className="text-sm text-muted-foreground">{post.readTime} min read</span>
+                      <div className="md:flex">
+                        {/* Thumbnail */}
+                        <div className="md:w-72 md:flex-shrink-0">
+                          {post.image ? (
+                            <img
+                              src={post.image}
+                              alt={post.title}
+                              className="w-full h-48 md:h-full object-cover"
+                            />
+                          ) : (
+                            <div className="w-full h-48 md:h-full bg-gradient-to-br from-primary/20 via-primary/10 to-accent/20 flex items-center justify-center">
+                              <BookOpen className="w-16 h-16 text-primary/40" />
+                            </div>
+                          )}
                         </div>
+                        
+                        {/* Content */}
+                        <div className="p-8 flex-1">
+                          <div className="flex items-start justify-between mb-4">
+                            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary">
+                              {post.category}
+                            </span>
+                            <span className="text-sm text-muted-foreground">{post.readTime} min read</span>
+                          </div>
 
-                        <h3 className="text-2xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
-                          {post.title}
-                        </h3>
+                          <h3 className="text-2xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
+                            {post.title}
+                          </h3>
 
                         <p className="text-foreground/70 mb-6 leading-relaxed">
                           {post.content.substring(0, 150)}...

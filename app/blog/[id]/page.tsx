@@ -19,6 +19,7 @@ interface BlogPost {
   createdAt: string
   category: string
   readTime: number
+  thumbnail?: string
 }
 
 export default function BlogPostPage() {
@@ -46,6 +47,7 @@ export default function BlogPostPage() {
             createdAt: blog.createdAt,
             category: blog.category,
             readTime: Math.ceil((blog.content || "").split(" ").length / 200),
+            thumbnail: blog.thumbnail,
           })
 
           // Track blog as read
@@ -140,6 +142,19 @@ export default function BlogPostPage() {
             </div>
           </div>
         </section>
+
+        {/* Featured Image */}
+        {post.thumbnail && (
+          <section className="px-4 sm:px-6 lg:px-8 -mt-6 mb-6">
+            <div className="max-w-4xl mx-auto">
+              <img
+                src={post.thumbnail}
+                alt={post.title}
+                className="w-full h-64 sm:h-96 object-cover rounded-lg shadow-lg"
+              />
+            </div>
+          </section>
+        )}
 
         {/* Content */}
         <section className="py-12 px-4 sm:px-6 lg:px-8">
