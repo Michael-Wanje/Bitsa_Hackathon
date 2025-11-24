@@ -70,7 +70,7 @@ export default function Navigation() {
             <Menu size={24} />
           </button>
 
-          {/* Auth Buttons */}
+          {/* Auth Buttons & Theme Toggle for Desktop */}
           <div className="hidden md:flex items-center space-x-3">
             {isLoggedIn ? (
               <>
@@ -106,6 +106,12 @@ export default function Navigation() {
                 </Link>
               </>
             )}
+            {/* Theme Toggle for Desktop */}
+            <div className="flex gap-1 ml-4">
+              <button className="px-2 py-1 rounded bg-muted text-foreground hover:bg-primary/10" onClick={() => document.documentElement.setAttribute('data-theme', 'system')}>System</button>
+              <button className="px-2 py-1 rounded bg-muted text-foreground hover:bg-primary/10" onClick={() => document.documentElement.setAttribute('data-theme', 'light')}>Light</button>
+              <button className="px-2 py-1 rounded bg-muted text-foreground hover:bg-primary/10" onClick={() => document.documentElement.setAttribute('data-theme', 'dark')}>Dark</button>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -117,10 +123,10 @@ export default function Navigation() {
           </button>
         </div>
 
-        {/* Mobile Drawer Sidebar */}
+        {/* Mobile Drawer Sidebar - Right, Opaque, Full Height */}
         {isOpen && (
           <div className="fixed inset-0 z-50 flex">
-            <div className="w-64 bg-background border-r border-border shadow-lg flex flex-col pt-8 px-4 animate-in slide-in-from-left duration-300">
+            <div className="fixed right-0 top-0 h-full w-72 bg-background border-l border-border shadow-lg flex flex-col pt-8 px-4 animate-in slide-in-from-right duration-300">
               <button
                 onClick={() => setIsOpen(false)}
                 className="self-end mb-4 p-2 rounded-md text-foreground hover:bg-muted transition-all duration-300"
@@ -174,6 +180,12 @@ export default function Navigation() {
                     </Link>
                   </>
                 )}
+              </div>
+              {/* Theme Toggle at Bottom */}
+              <div className="mt-auto pt-6 pb-2 flex justify-center gap-2 border-t border-border">
+                <button className="px-3 py-2 rounded-lg bg-muted text-foreground hover:bg-primary/10" onClick={() => document.documentElement.setAttribute('data-theme', 'system')}>System</button>
+                <button className="px-3 py-2 rounded-lg bg-muted text-foreground hover:bg-primary/10" onClick={() => document.documentElement.setAttribute('data-theme', 'light')}>Light</button>
+                <button className="px-3 py-2 rounded-lg bg-muted text-foreground hover:bg-primary/10" onClick={() => document.documentElement.setAttribute('data-theme', 'dark')}>Dark</button>
               </div>
             </div>
             <div className="flex-1 bg-black/30" onClick={() => setIsOpen(false)}></div>
