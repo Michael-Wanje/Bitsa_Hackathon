@@ -23,7 +23,7 @@ export default function GalleryPreview() {
   useEffect(() => {
     const fetchPhotos = async () => {
       try {
-        const response = await api.gallery.getAll({ limit: 6 })
+        const response = await api.gallery.getAll({ limit: 5 })
         const photosList = response.data?.photos || response.photos || []
         setPhotos(photosList)
       } catch (error) {
@@ -55,27 +55,28 @@ export default function GalleryPreview() {
           <div className="text-center py-8 text-muted-foreground text-sm">No photos yet. Check back soon!</div>
         ) : (
           photos.map((photo) => (
-            <div
-              key={photo.id}
-              className="group/item p-4 rounded-lg hover:bg-white/5 transition-all duration-300 cursor-pointer border border-transparent hover:border-white/10"
-            >
-              <div className="flex items-start gap-3">
-                <img
-                  src={photo.imageUrl}
-                  alt={photo.caption || 'Gallery photo'}
-                  className="w-16 h-16 object-cover rounded-lg"
-                />
-                <div className="flex-1">
-                  <p className="font-semibold text-sm text-foreground group-hover/item:text-accent transition-colors">
-                    {photo.event?.title || photo.caption || 'Untitled'}
-                  </p>
-                  {photo.caption && (
-                    <p className="text-xs text-muted-foreground/80 mt-1 line-clamp-2">{photo.caption}</p>
-                  )}
+            <Link href={`/gallery/${photo.id}`} key={photo.id} passHref>
+              <div
+                className="group/item p-4 rounded-lg hover:bg-white/5 transition-all duration-300 cursor-pointer border border-transparent hover:border-white/10"
+              >
+                <div className="flex items-start gap-3">
+                  <img
+                    src={photo.imageUrl}
+                    alt={photo.caption || 'Gallery photo'}
+                    className="w-16 h-16 object-cover rounded-lg"
+                  />
+                  <div className="flex-1">
+                    <p className="font-semibold text-sm text-foreground group-hover/item:text-accent transition-colors">
+                      {photo.event?.title || photo.caption || 'Untitled'}
+                    </p>
+                    {photo.caption && (
+                      <p className="text-xs text-muted-foreground/80 mt-1 line-clamp-2">{photo.caption}</p>
+                    )}
+                  </div>
+                  <div className="text-2xl text-accent/20 group-hover/item:text-accent/40 transition-colors">→</div>
                 </div>
-                <div className="text-2xl text-accent/20 group-hover/item:text-accent/40 transition-colors">→</div>
               </div>
-            </div>
+            </Link>
           ))
         )}
       </div>
