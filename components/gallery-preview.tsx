@@ -55,7 +55,7 @@ export default function GalleryPreview() {
           <div className="text-center py-8 text-muted-foreground text-sm">No photos yet. Check back soon!</div>
         ) : (
           photos.map((photo) => (
-            <Link href={`/gallery/${photo.id}`} key={photo.id} passHref>
+            <Link href="/gallery" key={photo.id} passHref>
               <div
                 className="group/item p-4 rounded-lg hover:bg-white/5 transition-all duration-300 cursor-pointer border border-transparent hover:border-white/10"
               >
