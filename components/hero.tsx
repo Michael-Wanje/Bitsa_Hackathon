@@ -110,8 +110,7 @@ export default function Hero() {
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-6 leading-tight animate-in fade-in slide-in-from-bottom-6 duration-700 fill-mode-both"
           style={{ animationDelay: "100ms" }}
         >
-          Where <span className="text-primary">deep tech</span> meets <span className="text-accent">a human</span>{" "}
-          mindset
+          Your hub for everything <span className="text-primary">BIT</span> at <span className="text-accent">UEAB</span>
         </h1>
 
         {/* CHANGE: Enhanced description with better typography */}
