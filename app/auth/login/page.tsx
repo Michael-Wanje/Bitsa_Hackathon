@@ -16,15 +16,21 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    console.log("LoginPage component mounted")
-    
-    // Check if user is already logged in
-    const token = localStorage.getItem("token")
-    if (token) {
-      console.log("User already has token, verifying...")
-      // Don't auto-redirect, let them login again if token is invalid
-      // This prevents redirect loops
-    }
+      // Only redirect if token is valid
+      const token = localStorage.getItem("token")
+      if (token) {
+        api.user.getProfile().then((res) => {
+          if (res.success && res.data?.user) {
+            window.location.href = "/dashboard"
+          } else {
+            localStorage.removeItem("token")
+            localStorage.removeItem("user")
+          }
+        }).catch(() => {
+          localStorage.removeItem("token")
+          localStorage.removeItem("user")
+        })
+      }
   }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

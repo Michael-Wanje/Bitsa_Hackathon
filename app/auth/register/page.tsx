@@ -83,11 +83,28 @@ export default function RegisterPage() {
         // Store token and user info
         localStorage.setItem("token", response.data.token)
         localStorage.setItem("user", JSON.stringify(response.data.user))
-        // Redirect to dashboard or login
+        // Redirect to dashboard
         router.push("/dashboard")
       } else {
         setErrors({ general: response.message || "Registration failed" })
       }
+      // Only redirect if token is valid
+      useEffect(() => {
+        const token = localStorage.getItem("token")
+        if (token) {
+          api.user.getProfile().then((res) => {
+            if (res.success && res.data?.user) {
+              window.location.href = "/dashboard"
+            } else {
+              localStorage.removeItem("token")
+              localStorage.removeItem("user")
+            }
+          }).catch(() => {
+            localStorage.removeItem("token")
+            localStorage.removeItem("user")
+          })
+        }
+      }, [])
     } catch (err: any) {
       setErrors({ general: err.message || "Network or server error" })
     } finally {
