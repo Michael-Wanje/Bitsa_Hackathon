@@ -115,8 +115,8 @@ export default function Hero() {
           <span className="text-accent">For</span>{" "}
           <span className="text-foreground">Everything</span>{" "}
           <span className="text-primary">BIT</span>{" "}
-          <span className="text-accent">at</span>{" "}
-          <span className="text-foreground">UEAB</span>
+          <span className="text-foreground">at</span>{" "}
+          <span className="text-accent">UEAB</span>
         </h1>
 
         {/* CHANGE: Enhanced description with better typography */}
