@@ -22,6 +22,7 @@ interface RegisteredEvent {
   date: string
   time: string
   status: "registered" | "attended" | "completed"
+  attendees: number
 }
 
 export default function DashboardPage() {
@@ -82,7 +83,7 @@ export default function DashboardPage() {
             date: e.date || "",
             time: e.time || "",
             status: r.status || "registered",
-            attendees: typeof e.attendees === 'number' ? e.attendees : (e.attendeeCount || (Array.isArray(e.registrations) ? e.registrations.length : 0) || 0)
+            attendees: e.attendeeCount || 0
           }
         })
         setRegisteredEvents(mappedEvents)

@@ -438,7 +438,11 @@ export const getUserRegistrations = async (req: AuthRequest, res: Response, next
     const registrations = await prisma.eventRegistration.findMany({
       where: { userId: req.user?.userId! },
       include: {
-        event: true,
+        event: {
+          include: {
+            _count: { select: { registrations: true } },
+          },
+        },
       },
       orderBy: {
         registeredAt: 'desc',
@@ -451,7 +455,11 @@ export const getUserRegistrations = async (req: AuthRequest, res: Response, next
         registrations: registrations.map((r) => ({
           id: r.id,
           registeredAt: r.registeredAt,
-          event: r.event,
+          event: {
+            ...r.event,
+            attendeeCount: r.event._count.registrations,
+            _count: undefined,
+          },
         })),
       },
       message: "User registrations fetched successfully",
