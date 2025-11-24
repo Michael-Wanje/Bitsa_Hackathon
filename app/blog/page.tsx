@@ -6,7 +6,7 @@ import Navigation from "@/components/navigation"
 import Footer from "@/components/footer"
 import { Input } from "@/components/ui/input"
 import { Card } from "@/components/ui/card"
-import { Search, Calendar, User, ArrowRight, Tag, Loader2 } from "lucide-react"
+import { Search, Calendar, User, ArrowRight, Tag, Loader2, BookOpen } from "lucide-react"
 import { api } from "@/lib/api"
 
 interface BlogPost {
@@ -141,7 +141,7 @@ export default function BlogPage() {
                     <Link href={`/blog/${post.id}`}>
                       <div className="md:flex">
                         {/* Thumbnail */}
-                        <div className="md:w-72 md:flex-shrink-0">
+                        <div className="md:w-72 md:shrink-0">
                           {post.image ? (
                             <img
                               src={post.image}
@@ -149,7 +149,7 @@ export default function BlogPage() {
                               className="w-full h-48 md:h-full object-cover"
                             />
                           ) : (
-                            <div className="w-full h-48 md:h-full bg-gradient-to-br from-primary/20 via-primary/10 to-accent/20 flex items-center justify-center">
+                            <div className="w-full h-48 md:h-full bg-linear-to-br from-primary/20 via-primary/10 to-accent/20 flex items-center justify-center">
                               <BookOpen className="w-16 h-16 text-primary/40" />
                             </div>
                           )}

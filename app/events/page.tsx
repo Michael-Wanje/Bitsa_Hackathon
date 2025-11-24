@@ -209,7 +209,7 @@ export default function EventsPage() {
                         className="w-full h-48 object-cover"
                       />
                     ) : (
-                      <div className="w-full h-48 bg-gradient-to-br from-secondary/20 via-secondary/10 to-accent/20 flex items-center justify-center">
+                      <div className="w-full h-48 bg-linear-to-br from-secondary/20 via-secondary/10 to-accent/20 flex items-center justify-center">
                         <Calendar className="w-16 h-16 text-secondary/40" />
                       </div>
                     )}

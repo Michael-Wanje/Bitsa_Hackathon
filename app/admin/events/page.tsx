@@ -24,8 +24,7 @@ export default function AdminEventsPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  useEffect(() => {
-    const fetchEvents = async () => {
+  const fetchEvents = async () => {
       try {
         setLoading(true)
         const response = await api.events.getAll({ limit: 50 })
@@ -50,10 +49,28 @@ export default function AdminEventsPage() {
       } finally {
         setLoading(false)
       }
-    }
+  }
 
+  useEffect(() => {
     fetchEvents()
   }, [])
+
+  const handleDelete = async (id: number) => {
+    if (!confirm("Are you sure you want to delete this event?")) return
+
+    try {
+      const response = await api.events.delete(id.toString())
+      if (response.success) {
+        alert("Event deleted successfully")
+        fetchEvents()
+      } else {
+        alert(response.message || "Failed to delete event")
+      }
+    } catch (error) {
+      console.error("Delete event error:", error)
+      alert("Error deleting event")
+    }
+  }
 
   return (
     <>
@@ -133,7 +150,12 @@ export default function AdminEventsPage() {
                             Edit
                           </Button>
                         </Link>
-                        <Button variant="ghost" size="sm" className="gap-2 text-destructive hover:text-destructive">
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          className="gap-2 text-destructive hover:text-destructive"
+                          onClick={() => handleDelete(event.id)}
+                        >
                           <Trash2 className="w-4 h-4" />
                           Delete
                         </Button>
