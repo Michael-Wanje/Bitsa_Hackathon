@@ -277,14 +277,22 @@
     animation: shimmer 2s infinite;
   }
 
-  /* Accessible focus ring (replaces invalid ring properties) */
-  .focus-ring {
-    outline: none;
+  /* Restored gradient text utility */
+  .gradient-text {
+    background: linear-gradient(to right, var(--primary), var(--secondary), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
+  /* Reverted focus ring to layered ring style */
+  .focus-ring { outline: none; }
   .focus-ring:focus-visible {
-    outline: 2px solid var(--ring);
-    outline-offset: 2px;
+    outline: none;
+    box-shadow:
+      0 0 0 2px rgb(var(--color-background)),
+      0 0 0 4px var(--ring);
+    transition: box-shadow 150ms ease-in-out;
   }
 
   .transition-smooth {
